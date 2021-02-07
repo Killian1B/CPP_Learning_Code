@@ -25,4 +25,5 @@ add_executable(c4-3-vehicles
     3-vehicles/Car.h
     3-vehicles/Scooter.h
     3-vehicles/Vehicle.h
+    3-vehicles/FlyingCar.h
 )
