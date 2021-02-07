@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-class Cat
+#include "Animal.h"
+class Cat: public Animal
 {
 public:
-    void sing() const { std::cout << "Meow" << std::endl; }
+    void sing(char next_char) const override { std::cout << "Meow" << next_char; }
 };
