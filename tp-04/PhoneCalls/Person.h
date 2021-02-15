@@ -17,6 +17,11 @@ public:
 		std::cout << "Hi! " << _name << " on the phone!" << std::endl;
 	}
 
+	void nos_answer_phone() const
+	{
+		std::cout << "This is the voicemail of " << _name << ". Please leave a message." << std::endl;
+	}
+
 	int get_position() const
 	{
 		return _position;

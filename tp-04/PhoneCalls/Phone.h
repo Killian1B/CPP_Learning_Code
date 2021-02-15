@@ -4,13 +4,16 @@
 
 class Phone
 {
-public:
+protected:
 	Phone(const Person& owner)
 		: _owner { owner }
 	{}
 
-	void ring() const { _owner.answer_phone(); }
+public:
+	virtual ~Phone() {}
+	
+	virtual void ring() const = 0;
 
-private:
+protected:
 	const Person& _owner;
 };
