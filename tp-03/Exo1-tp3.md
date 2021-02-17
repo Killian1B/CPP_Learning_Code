@@ -4,11 +4,11 @@
 
 | conteneur    | insertion (en tête / en fin) | suppression (en tête / en fin) | accès |
 |--------------|-----------|----------|-----------|
-| array        | N/A       | N/A      |           |
+| array        | N/A       | N/A      | O(ln(n))  |
 | vector       | O(1)      | O(1)     | O(1)      |
 | deque        | O(1)      | O(1)     | O(1)      |
-| forward_list |           |          |           |
-| list         |           |          |           |
+| forward_list | O(1)      | O(1)     | O(1)      |
+| list         | O(1)      | O(1)     | O(1)      |
 | set          | O(ln(n))  | O(ln(n)) | O(ln(n))  |
 | unordered_set| O(1)      | O(1)     | O(1)      |
 
