@@ -26,7 +26,3 @@ Les opérations succeptibles d'invalider `it` sont celles qui incluent `end()` d
 ## Question 4
 
 `RelativePoint` a un constructeur, mais n'a pas de constructeur par défault. Il faut lui en ajouter un (Voir Exo1-tp3-Points.cpp).
-
-
-## Question 5
-

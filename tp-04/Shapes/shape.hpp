@@ -14,7 +14,9 @@ class Shape {
 public:
 	virtual PointContainer intersect(const Shape& other) const = 0;
 	virtual PointContainer intersect(const Line& ln) const = 0;
-	virtual PointContainer intersect(const Circle& /*cl*/) const {return {};}
+	virtual PointContainer intersect(const Circle& cl) const {
+		return intersect(cl);
+	}
 	virtual ~Shape() {}
 	
 	virtual std::ostream& print(std::ostream& os) const {

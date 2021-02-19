@@ -3,7 +3,7 @@
 #include <deque>
 #include <set>
 #include <unordered_set>
-
+  
 int main()
 {
     std::vector<unsigned long> v;
@@ -32,25 +32,15 @@ int main()
     }
     std::cout << "Il y a " << v.size() << " éléments restants. (vector)" << std::endl;
 
-    //int nb = 0;
-    for(auto i = dq.begin(); i != dq.end(); )
+    for(auto i = 0; (dq.begin()+i) != dq.end(); ++i)
     {
-        //i = dq.begin() + nb;
-        int nb = 0;
-        for(auto j = i+1; j != dq.end(); )
+        for(auto j = i+1; (dq.begin()+j) != dq.end();)
         {
-            if((*j % *i) == 0)
-            {
-                std::cout << "On supprime : " << *j << std::endl;
-                j = dq.erase(j);
-                nb++;
-            }
+            if((*(dq.begin()+j) % *(dq.begin()+i)) == 0)
+                dq.erase(dq.begin()+j);
             else
-                j++;
+                ++j;
         }
-        //nb++;
-        //i = dq.begin() + nb;
-        i += 1;
     }
     std::cout << "Il y a " << dq.size() << " éléments restants. (deque)" << std::endl;
     
