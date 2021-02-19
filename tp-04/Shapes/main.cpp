@@ -35,6 +35,7 @@ int main(int, char**) {
 
     // test 4
     some_shapes.emplace_back(new Circle{{1,1}, 5});
+    some_shapes.emplace_back(new Circle{{8,1}, 2});
     
     intersect_all(some_shapes);
     for(auto& p: some_shapes) delete p;

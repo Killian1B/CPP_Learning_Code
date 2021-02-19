@@ -1,5 +1,5 @@
 # Exercice 1
-
+  
 ## Question 1
 
 Un attribut de type `const Person&` représente la référence d'un objet, nous ne pourront pas lui attribuer de nouvel objet, mais pourrons le modifier. Alors qu'un attribut de type `const Person` représente juste l'objet et n'est pas modifiable. 
@@ -14,6 +14,8 @@ J'ai également ajouté une méthode `nos_answer_phone` à la classe `Person` po
 
 ## Question 5
 
+Nous pouvons effectuer ce genre d'appel sur les classes abstraites.
+Lorsque l'on définit des classes abstraites il faut faire en sorte que l'on ne puisse pas référencer des objets de cette classe.
 
 
 ## Question 8
@@ -24,7 +26,4 @@ Oui, ce code compile. Celà me parrait normal, ici nous ne faisons pas appel au 
 ## Question 9
 
 Ce type de classes sont des classes abstraites.
-
-
-## Question 10
 

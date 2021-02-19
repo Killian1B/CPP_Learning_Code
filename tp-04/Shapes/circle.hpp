@@ -21,15 +21,15 @@ public:
 	// d1^2 = r1^2 - r2^2 + (dc - d1)^2, that is
 	// (d1 + (dc - d1))(d1 - (dc - d1)) = r1^2 - r2^2, that is
 	// 2d1 = (r1^2 - r2^2) / dc + dc
-	PointContainer intersect(const Circle& other) const {
+	PointContainer intersect(const Circle& cl) const {
 		PointContainer result;
-		const Point center_to_center = other.center - center;
+		const Point center_to_center = cl.center - center;
 		const float dc = center_to_center.dist_to_0();
 		// by convention, circles with the same center do not intersect
 		if(dc > 0) {
-			const float radii = radius + other.radius;
+			const float radii = radius + cl.radius;
 			if(dc < radii) {
-				const float d1 = (dc + (radius * radius - other.radius * other.radius) / dc) / 2;
+				const float d1 = (dc + (radius * radius - cl.radius * cl.radius) / dc) / 2;
 				const Point P = center + center_to_center * (d1 / dc);
 				result.merge(intersect(Line{P, center_to_center.rotate_90deg()}));
 			} else if(dc == radii) {

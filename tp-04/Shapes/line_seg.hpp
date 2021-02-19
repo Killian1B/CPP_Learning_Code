@@ -11,6 +11,4 @@ public:
 	std::ostream& print(std::ostream& os) const override {
 		return os << "line segment " << first << " & " << last;
 	}
-
-	
 };
