@@ -4,27 +4,35 @@
 
 #include <algorithm>
 #include <vector>
+#include <memory>
+#include <utility>
 
 class PC
 {
 public:
-    void transfer(Pokemon* pokemon) { _stored_pokemons.emplace_back(pokemon); }
+    void transfer(std::unique_ptr<Pokemon> pokemon) { _stored_pokemons.emplace_back(std::move(pokemon)); }
 
-    void remove(const Pokemon* pokemon)
+    void transfer(Pokemon* pokemon) { transfer(std::unique_ptr<Pokemon> { pokemon }); }
+
+    void remove(const Pokemon& pokemon)
     {
-        release(pokemon);
-        delete pokemon;
+        auto to_destroy = release(pokemon);
     }
 
-    void release(const Pokemon* pokemon)
+    [[nodiscard]] std::unique_ptr<Pokemon> release(const Pokemon& pokemon)
     {
-        auto it = std::find(_stored_pokemons.begin(), _stored_pokemons.end(), pokemon);
+        std::unique_ptr<Pokemon> result;
+
+        auto it = std::find_if(_stored_pokemons.begin(), _stored_pokemons.end(), [&pokemon](const auto& p) { return p.get() == &pokemon; });
         if (it != _stored_pokemons.end())
         {
+            std::swap(result, *it);
             _stored_pokemons.erase(it);
         }
+
+        return result;
     }
 
 private:
-    std::vector<Pokemon*> _stored_pokemons;
+    std::vector<std::unique_ptr<Pokemon>> _stored_pokemons;
 };

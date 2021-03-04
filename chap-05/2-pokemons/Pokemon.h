@@ -17,9 +17,9 @@ public:
 
     void level_up() { ++_level; }
 
-    friend bool operator==(const Pokemon* pokemon, std::string_view name)
+    friend bool operator==(const Pokemon& pokemon, std::string_view name)
     {
-        return pokemon->_name == name;
+        return pokemon._name == name;
     }
 
 private:
