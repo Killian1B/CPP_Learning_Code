@@ -6,25 +6,54 @@
 #include <memory>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 
 class Texture
 {
 public:
-    static std::unique_ptr<Texture> Load(std::string_view name)
+    class Cache
     {
-        std::cout << "Texture width: ";
-        std::cout.flush();
+    public:
+        std::shared_ptr<Texture> Load(const std::string& name)
+        {
+            auto it = _textures.find(name);
+            if (it != _textures.end())
+            {
+                if (auto texture = it->second.lock())
+                {
+                    return texture;
+                }
 
-        int width = 0;
-        std::cin >> width;
+                // Il ne faut pas oublier de supprimer l'ancien élément, car
+                // les fonctions d'insertion d'unordered_map ne font rien lorsqu'une
+                // valeur est déjà présente.  
+                _textures.erase(it);
+            }
+            std::cout << "Texture width: ";
+            std::cout.flush();
 
-        std::cout << "Texture height: ";
-        std::cout.flush();
+            int width = 0;
+            std::cin >> width;
 
-        int height = 0;
-        std::cin >> height;
+            std::cout << "Texture height: ";
+            std::cout.flush();
 
-        return std::make_unique<Texture>(name, width, height);
+            int height = 0;
+            std::cin >> height;
+
+            // On remplace make_shared par un new.
+            std::shared_ptr<Texture> texture { new Texture { name, width, height } };
+            _textures.emplace_hint(it, name, std::weak_ptr { texture });
+            return texture;
+        }
+
+    private:
+        std::unordered_map<std::string, std::weak_ptr<Texture>> _textures;
+    };
+
+    static std::shared_ptr<Texture> Load(Cache& cache, const std::string& name)
+    {
+        return cache.Load(name);
     }
 
     static unsigned int Count() { return _count; }
@@ -48,6 +77,8 @@ public:
     {
         return stream << "Texture " << texture._name << " (" << texture._width << "x" << texture._height << ")";
     }
+
+    const std::string& get_name() const { return _name; }
 
 private:
     static inline unsigned int _count = 0u;
